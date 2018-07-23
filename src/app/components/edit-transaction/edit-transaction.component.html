@@ -17,7 +17,7 @@
             <option value="-1">Create new...</option>
           </select>
         </div>
-        <app-create-category *ngIf="categoryId===-1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
+        <app-create-category *ngIf="transaction.category.id==-1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
       </div>
       <div class="form-group">
         <div class="input-group row align-items-center">

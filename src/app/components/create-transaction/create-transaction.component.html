@@ -1,6 +1,6 @@
 <div class="col-md-8 offset-md-2">
   <h2 style="margin-bottom: 20px;">Create new transaction</h2>
-  <form (submit)="onSubmit()">
+  <form (submit)="onSubmit($event)">
     <fieldset>
       <div class="form-group">
         <input class="form-control" type="text" id="title" placeholder="Title" required [(ngModel)]="title" name="title" required

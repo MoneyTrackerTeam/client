@@ -28,9 +28,9 @@ export class CreateTransactionComponent implements OnInit {
     this.categoryId = 0;
     this.getCategories();
   }
-  onSubmit() {
+  onSubmit(e) {
     if (this.hasErrors()) {
-      return;
+      e.preventDefault();
     }
     const date = `${this.date.year}-${this.date.month}-${this.date.day} ${this.time.hour}:${this.time.minute}`;
     const transaction: ITransaction = {

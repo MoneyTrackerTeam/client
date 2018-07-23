@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ITransaction, ICategory } from '../../interfaces';
 import { TransactionsService } from '../../services/transactions.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { NgbTimeStruct, NgbDateStruct } from '../../../../node_modules/@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -25,7 +24,7 @@ export class EditTransactionComponent implements OnInit {
   date: NgbDateStruct;
   time: NgbTimeStruct;
   constructor(private transactionService: TransactionsService, private activeRoute: ActivatedRoute,
-    private categoryService: CategoryService
+    private categoryService: CategoryService, private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,9 +47,16 @@ export class EditTransactionComponent implements OnInit {
   }
   onSubmit() {
     const date = `${this.date.year}-${this.date.month}-${this.date.day} ${this.time.hour}:${this.time.minute}`;
-    this.transaction.date = (new Date).getTime();
+    this.transaction.date = (new Date(date)).getTime();
     this.transactionService.updateTransaction(this.transaction).subscribe((t) => {
-      console.log('updated');
+      this.router.navigate(['transactions']);
     });
   }
+  onCategoryCreated(cat: ICategory) {
+    this.transaction.category = cat;
+  }
+  onCancel() {
+    this.router.navigate(['transactions']);
+  }
+
 }
