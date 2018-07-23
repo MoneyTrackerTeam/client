@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', `Bearer ${resp.accessToken}`);
           this.router.navigate(['/transactions']);
         } else {
-          return;
+          this.msgs.showAlert({ severity: 'danger', text: 'Error logging in', module: 'login' });
         }
       });
     } else {
