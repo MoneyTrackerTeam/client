@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { ITransaction, ICategory } from '../../interfaces';
 import { MessagesService } from '../../services/messages.service';
 import { CategoryService } from '../../services/category.service';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 const now = new Date();
 @Component({
@@ -13,32 +13,39 @@ const now = new Date();
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent implements OnInit {
-  date: NgbDateStruct;
-  title: string;
-  amount: string;
-  time: NgbTimeStruct;
-  categoryId: number;
   categories: ICategory[];
+  createTransactionForm: FormGroup;
   constructor(private router: Router,
     private transactionService: TransactionsService,
     private msgs: MessagesService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.categoryId = 0;
     this.getCategories();
+    this.initiateForm();
+  }
+
+  initiateForm() {
+    this.createTransactionForm = this.fb.group({
+      title: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.pattern(/\d+/)]],
+      category: [0, [Validators.min(1)]],
+      date: [{}, [Validators.required]],
+      time: [{}, [Validators.required]]
+    });
   }
   onSubmit(e) {
-    if (this.hasErrors()) {
+    if (this.createTransactionForm.invalid) {
       e.preventDefault();
+      return;
     }
-    const date = `${this.date.year}-${this.date.month}-${this.date.day} ${this.time.hour}:${this.time.minute}`;
-    const transaction: ITransaction = {
-      title: this.title,
-      amount: +this.amount,
-      date: (new Date(date)).getTime(),
-      categoryId: this.categoryId
-    };
+    const date = this.createTransactionForm.controls.date.value;
+    const time = this.createTransactionForm.controls.time.value;
+    const dateN = `${date.year}-${date.month}-${date.day}` + ` ${time.hour}:${time.minute}`;
+    const transaction: ITransaction = this.createTransactionForm.value;
+    transaction.date = new Date(dateN).getTime();
+    transaction.categoryId = transaction.category.id;
     this.transactionService.createTransaction(transaction).subscribe(createdT => {
       this.msgs.handleError({
         severity: 'success',
@@ -62,33 +69,14 @@ export class CreateTransactionComponent implements OnInit {
 
     } else {
       this.categories.push(cat);
-      this.categoryId = cat.id;
+      this.createTransactionForm.controls.category.setValue(cat.id);
     }
-
   }
-
-  hasErrors() {
-    let isFailed = false;
-    if (!this.title) {
-      this.msgs.showAlert({ severity: 'warning', module: 'form', text: ' Title is required' });
-      isFailed = true;
+  isControlInvalid(control) {
+    const ctrl = this.createTransactionForm.controls[control];
+    if (control === 'category') {
+      return (ctrl.value !== 0 || ctrl.value !== -1) && (ctrl.invalid && ctrl.touched);
     }
-    if (!this.amount) {
-      this.msgs.showAlert({ severity: 'warning', module: 'form', text: 'Amount is required' });
-      isFailed = true;
-    }
-    if (!this.date) {
-      this.msgs.showAlert({ severity: 'warning', module: 'form', text: 'Date is required' });
-      isFailed = true;
-    }
-    if (!this.time) {
-      this.msgs.showAlert({ severity: 'warning', module: 'form', text: 'Select time' });
-      isFailed = true;
-    }
-    if (this.categoryId < 1) {
-      this.msgs.showAlert({ severity: 'warning', module: 'form', text: 'Pick a category' });
-      isFailed = true;
-    }
-    return isFailed;
+    return ctrl.invalid && !ctrl.pristine;
   }
 }
