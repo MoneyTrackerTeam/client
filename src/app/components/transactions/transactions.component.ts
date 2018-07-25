@@ -3,7 +3,6 @@ import { TransactionsService } from '../../services/transactions.service';
 import { ITransaction, IMonth, ICategory } from '../../interfaces/';
 import { Router } from '@angular/router';
 import { MonthsService } from '../../services/months.service';
-import { MessagesService } from '../../services/messages.service';
 import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-transactions',
@@ -29,7 +28,6 @@ export class TransactionsComponent implements OnInit {
   }
   constructor(private transactionsService: TransactionsService, private router: Router,
     private monthService: MonthsService,
-    private msgs: MessagesService,
     private categoryService: CategoryService) { }
 
   ngOnInit() {
@@ -83,7 +81,6 @@ export class TransactionsComponent implements OnInit {
           this.shownTransactions = this.shownTransactions.filter((tr) => {
             return tr.id !== t.id;
           });
-          this.msgs.showAlert({ severity: 'info', text: 'Transaction deleted', module: 'transactions' });
         }
       });
     } else if (e.type === 'click' && e.target.id === 'edit-transaction') {

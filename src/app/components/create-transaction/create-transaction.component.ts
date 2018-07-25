@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { ITransaction, ICategory } from '../../interfaces';
-import { MessagesService } from '../../services/messages.service';
 import { CategoryService } from '../../services/category.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
@@ -17,7 +16,6 @@ export class CreateTransactionComponent implements OnInit {
   createTransactionForm: FormGroup;
   constructor(private router: Router,
     private transactionService: TransactionsService,
-    private msgs: MessagesService,
     private categoryService: CategoryService,
     private fb: FormBuilder) { }
 
@@ -47,11 +45,6 @@ export class CreateTransactionComponent implements OnInit {
     transaction.date = new Date(dateN).getTime();
     transaction.categoryId = transaction.category.id;
     this.transactionService.createTransaction(transaction).subscribe(createdT => {
-      this.msgs.handleError({
-        severity: 'success',
-        text: `New transaction ${transaction.title} was created`,
-        module: 'create-transaction'
-      });
       this.router.navigate(['/transactions']);
     });
   }

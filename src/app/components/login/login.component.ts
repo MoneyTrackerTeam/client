@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { MessagesService } from '../../services/messages.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
@@ -11,8 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   formValid = true;
   loginForm: FormGroup;
-  constructor(private loginService: LoginService,
-    private msgs: MessagesService, private router: Router, private fb: FormBuilder) { }
+  constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -28,7 +26,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('access_token', `Bearer ${resp.accessToken}`);
           this.router.navigate(['/transactions']);
         } else {
-          this.msgs.showAlert({ severity: 'danger', text: 'Error logging in', module: 'login' });
+          this.router.navigate(['login']);
         }
       });
     } else {

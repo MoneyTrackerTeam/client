@@ -10,7 +10,6 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { LoginComponent } from './components/login/login.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
-import { AlertComponent } from './components/alert/alert.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
@@ -43,7 +42,6 @@ const appRoutes: Routes = [
     LoginComponent,
     TransactionComponent,
     CreateTransactionComponent,
-    AlertComponent,
     CategoryComponent,
     CreateCategoryComponent,
     EditTransactionComponent

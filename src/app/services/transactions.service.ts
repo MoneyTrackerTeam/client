@@ -3,45 +3,36 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ITransaction, IUser } from '../interfaces/';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MessagesService } from './messages.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionsService {
   private transUrl = 'http://localhost:3000/transactions';
-  constructor(private http: HttpClient, private msgs: MessagesService) { }
+  constructor(private http: HttpClient) { }
   getTransactions(): Observable<ITransaction[]> {
     return this.http.get<ITransaction[]>(this.transUrl)
       .pipe(
-        catchError(this.msgs.handleError({ severity: 'danger', text: 'Error fetching transactions', module: 'get-transactions' }, [])),
         map(this.transformDateArray)
       );
   }
 
   getOneTransaction(id: number): Observable<ITransaction> {
     return this.http.get<ITransaction | any>(`${this.transUrl}/${id}`).pipe(
-      catchError(this.msgs.handleError({ severity: 'danger', text: 'Error fetching transaction', module: 'get-transaction' }, {})),
       map(this.transformDate)
     );
   }
 
   createTransaction(transaction: ITransaction): Observable<ITransaction> {
-    return this.http.post<ITransaction | any>(this.transUrl, transaction).pipe(
-      catchError(this.msgs.handleError({ severity: 'danger', text: 'Error creating transaction', module: 'create-transaction' }, {}))
-    );
+    return this.http.post<ITransaction | any>(this.transUrl, transaction);
   }
 
   updateTransaction(transaction: ITransaction): Observable<ITransaction> {
-    return this.http.put<ITransaction | any>(`${this.transUrl}/${transaction.id}`, transaction).pipe(
-      catchError(this.msgs.handleError({ severity: 'danger', text: 'Error creating transaction', module: 'create-transaction' }, {}))
-    );
+    return this.http.put<ITransaction | any>(`${this.transUrl}/${transaction.id}`, transaction);
   }
 
   deleteTransaction(id: number): Observable<any> {
-    return this.http.delete(`${this.transUrl}/${id}`).pipe(
-      catchError(this.msgs.handleError({ severity: 'danger', text: 'Error deleting transaction', module: 'delete-transaction' },
-        false))
-    );
+    return this.http.delete(`${this.transUrl}/${id}`);
   }
 
   transformDateArray(v: ITransaction[]): ITransaction[] {
