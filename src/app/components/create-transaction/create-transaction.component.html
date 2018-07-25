@@ -30,7 +30,7 @@
         <div class="input-group row align-items-center">
           <div class="col-md-7">
             <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()" formControlName="date"
-              required>
+              required [ngClass]="{'is-invalid':isControlInvalid('date')}">
           </div>
           <div class="invalid-feedback">Please select category</div>
           <div class="col-md-5">
