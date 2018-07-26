@@ -2,7 +2,9 @@
     background-color: black;
     width:14em;
     height: 5em;
+    position: absolute;
     border-radius: 5%;
+    right: -14em;
 }
 
 .success-alert{
@@ -17,4 +19,8 @@
 }
 .error-alert{
     background-color:red;
+}
+div {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }

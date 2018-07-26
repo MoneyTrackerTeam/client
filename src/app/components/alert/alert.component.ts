@@ -6,13 +6,14 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 const animation = [
   trigger('alertState', [
     state('show', style({
-      opacity: 1
+      right: '15px',
     })),
     state('hide', style({
-      opacity: 0
+      opacity: 0,
+      display: 'none'
     })),
-    transition('show => hide', animate('600ms ease-out')),
-    transition('hide => show', animate('1000ms ease-in'))
+    transition('show => hide', animate('2000ms ease-in-out')),
+    transition('hide => show', animate('600ms ease-in-out'))
   ])
 ];
 
@@ -37,15 +38,14 @@ export class AlertComponent implements OnInit {
   showAlert(alert: Alert) {
     this.alert = alert;
     this.addClass();
+    this.show = true;
+    setTimeout(() => {
+      this.show = false;
+    }, 2500);
   }
   get stateName() {
     return this.show ? 'show' : 'hide';
   }
-
-  toggle() {
-    this.show = !this.show;
-  }
-
   addClass() {
     switch (this.alert.severity) {
       case 'error':
