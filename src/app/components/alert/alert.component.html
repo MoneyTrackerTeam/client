@@ -1,3 +1,5 @@
-<div class="app-alert" [ngClass]="alertClass">
+<div class="app-alert" [ngClass]="alertClass" [@alertState]="stateName">
 
 </div>
+
+<button (click)="toggle()">Toggle</button>
