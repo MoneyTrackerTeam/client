@@ -25,13 +25,10 @@ export interface IUser {
     password: string;
     id: number;
 }
-
-export interface IError {
-    severity: 'danger' | 'warning' | 'info' | 'success';
+export interface Alert {
+    severity: 'success' | 'info' | 'warning' | 'error';
     text: string;
-    module: string;
 }
-
 export interface ICategory {
     id: number;
     name?: string;

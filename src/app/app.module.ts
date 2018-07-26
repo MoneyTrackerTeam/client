@@ -13,6 +13,7 @@ import { CreateTransactionComponent } from './components/create-transaction/crea
 import { CategoryComponent } from './components/category/category.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
+import { AlertComponent } from './components/alert/alert.component';
 const appRoutes: Routes = [
   {
     path: 'transactions', component: TransactionsComponent
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     CreateTransactionComponent,
     CategoryComponent,
     CreateCategoryComponent,
-    EditTransactionComponent
+    EditTransactionComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+.app-alert{
+    background-color: black;
+    width:14em;
+    height: 5em;
+    border-radius: 5%;
+}
+
+.success-alert{
+    background-color:cadetblue;
+}
+
+.warn-alert{
+    background-color: yellow;
+}
+.info-alert{
+    background-color:aqua;
+}
+.error-alert{
+    background-color:red;
+}
