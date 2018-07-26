@@ -17,5 +17,4 @@ export function ValidateDate(control: AbstractControl): ValidationErrors | null 
             key: 'Date is not correct'
         };
     }
-    return null;
 }
