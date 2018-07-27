@@ -3,7 +3,7 @@ import { NgbDateStruct } from '../../../node_modules/@ng-bootstrap/ng-bootstrap'
 
 export function ValidateDate(control: AbstractControl): ValidationErrors | null {
     const date: NgbDateStruct = control.value;
-    if (!date.year || !date.month || date.day) {
+    if (!date.year || !date.month || !date.day) {
         return {
             key: 'Date format is not recognized'
         };
