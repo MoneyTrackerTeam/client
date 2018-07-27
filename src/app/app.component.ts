@@ -18,7 +18,4 @@ export class AppComponent {
   onLogout() {
     localStorage.removeItem('access_token');
   }
-  testFunc() {
-    this.alerts.showAlert({ severity: 'error', text: 'Error creating tranasction. Please try again' });
-  }
 }
