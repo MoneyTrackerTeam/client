@@ -27,9 +27,12 @@
     <li *ngFor="let transaction of shownTransactions" class="list-group-item list-group-item-action" (click)="navigateToTr($event,transaction)">
       <div class="row">
         <div class="col-md-4">{{transaction.title}}</div>
-        <div class="col-md-4">{{transaction.readableDate}}, {{transaction.readableTime}}</div>
-        <div class="col-md-3">
+        <div class="col-md-2">{{transaction.readableDate}}, {{transaction.readableTime}}</div>
+        <div class="col-md-2">
           <p [class]="transaction.amount > 0 ? 'text-success' :'text-danger'">{{transaction.amount}}</p>
+        </div>
+        <div class="col-md-3">
+          {{transaction.category.name}}
         </div>
         <span class="d-flex align-items-center">
           <i id="delete-transaction" class="material-icons">
