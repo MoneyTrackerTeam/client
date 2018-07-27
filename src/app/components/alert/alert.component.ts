@@ -12,7 +12,7 @@ const animation = [
       opacity: 0,
       display: 'none'
     })),
-    transition('show => hide', animate('2000ms ease-in-out')),
+    transition('show => hide', animate('400ms ease-in-out')),
     transition('hide => show', animate('600ms ease-in-out'))
   ])
 ];
@@ -25,7 +25,10 @@ const animation = [
 })
 export class AlertComponent implements OnInit {
   alertClass: 'success-alert' | 'warn-alert' | 'info-alert' | 'error-alert';
-  alert: Alert;
+  alert: Alert = {
+    severity: 'info',
+    text: ''
+  };
   show = false;
   constructor(private alertService: AlertService) {
     alertService.alert.subscribe((alert) => {

@@ -3,24 +3,33 @@
     width:14em;
     height: 5em;
     position: absolute;
-    border-radius: 5%;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
     right: -14em;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: left;
 }
 
 .success-alert{
-    background-color:cadetblue;
+    background-color:#d4edda;
+    border-color: #c3e6cb;
 }
 
 .warn-alert{
-    background-color: yellow;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
 }
 .info-alert{
-    background-color:aqua;
+    background-color:#cce5ff;
+    border-color: #b8daff;
 }
 .error-alert{
-    background-color:red;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
-div {
-    overflow-y: hidden;
-    overflow-x: hidden;
+
+p{
+    padding-left: 1rem;
+    padding-top: 0.5rem;
 }
