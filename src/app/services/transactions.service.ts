@@ -3,32 +3,53 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ITransaction, IUser } from '../interfaces/';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionsService {
   private transUrl = 'http://localhost:3000/transactions';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertService: AlertService) { }
+
+
   getTransactions(): Observable<ITransaction[]> {
     return this.http.get<ITransaction[]>(this.transUrl)
       .pipe(
+        catchError((error, caught) => {
+          this.alertService.showAlert({ severity: 'error', text: 'Error fetching transactions' });
+          return of([]);
+        }),
         map(this.transformDateArray)
       );
   }
 
   getOneTransaction(id: number): Observable<ITransaction> {
-    return this.http.get<ITransaction | any>(`${this.transUrl}/${id}`).pipe(
+    return this.http.get<ITransaction>(`${this.transUrl}/${id}`).pipe(
+      catchError((error, caught) => {
+        this.alertService.showAlert({ severity: 'error', text: 'Error fetching transaction' });
+        return of({});
+      }),
       map(this.transformDate)
     );
   }
 
   createTransaction(transaction: ITransaction): Observable<ITransaction> {
-    return this.http.post<ITransaction | any>(this.transUrl, transaction);
+    return this.http.post<ITransaction>(this.transUrl, transaction).pipe(
+      catchError((error, caught) => {
+        this.alertService.showAlert({ severity: 'error', text: 'Error creating transaction' });
+        return of({ id: 0, title: '', amount: 0, date: 0 });
+      })
+    );
   }
 
   updateTransaction(transaction: ITransaction): Observable<ITransaction> {
-    return this.http.put<ITransaction | any>(`${this.transUrl}/${transaction.id}`, transaction);
+    return this.http.put<ITransaction | any>(`${this.transUrl}/${transaction.id}`, transaction).pipe(
+      catchError((error, caught) => {
+        this.alertService.showAlert({ severity: 'error', text: 'Error updating transaction' });
+        return of({});
+      })
+    );
   }
 
   deleteTransaction(id: number): Observable<any> {
