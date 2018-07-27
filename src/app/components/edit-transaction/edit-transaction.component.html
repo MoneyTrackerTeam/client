@@ -1,32 +1,37 @@
 <div class="col-md-8 offset-md-2">
   <h2 style="margin-bottom: 20px;">Create new transaction</h2>
-  <form (submit)="onSubmit()">
+  <form (submit)="onSubmit()" [formGroup]="editTransactionForm">
     <fieldset>
-      <div class="form-group">
-        <input class="form-control" type="text" id="title" placeholder="Title" required [(ngModel)]="transaction.title" name="title"
-          required>
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="text" id="amount" placeholder="Amount" [(ngModel)]="transaction.amount" name="amount" required>
-      </div>
-      <div class="form-group">
-        <div class="form-group">
-          <select class="form-control" id="categories" [(ngModel)]="transaction.category.id" name="categoryId">
-            <option value="0" disabled selected>Select category</option>
-            <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
-            <option value="-1">Create new...</option>
-          </select>
+      <div class="form-group has-dangers">
+        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title" [ngClass]="{'is-invalid':isControlInvalid('title')}">
+        <div class="invalid-feedback">
+          Title is reuquired
         </div>
-        <app-create-category *ngIf="transaction.category.id==-1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
       </div>
+      <div class="form-group has-danger">
+        <input class="form-control" type="text" id="amount" placeholder="Amount" required formControlName="amount">
+      </div>
+      <div class="invalid-feedback">
+        Amount is required and should be numberic
+      </div>
+      <div class="form-group has-danger">
+        <select class="form-control" id="categories" name="categoryId" formControlName="category" [ngClass]="{'is-invalid':isControlInvalid('category')}"
+          required>
+          <option value="0" disabled selected>Select category</option>
+          <option *ngFor="let cat of categories" [ngValue]="cat" [value]="cat.id">{{cat.name}}</option>
+          <option value="-1">Create new...</option>
+        </select>
+        <div class="invalid-feedback">Please select category</div>
+      </div>
+      <app-create-category *ngIf="editTransactionForm.controls['category'].value== -1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
       <div class="form-group">
         <div class="input-group row align-items-center">
           <div class="col-md-7">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="date" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()"
+            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()" formControlName="date"
               required>
           </div>
           <div class="col-md-5">
-            <ngb-timepicker [(ngModel)]="time" name="time" id="time" size="medium" required></ngb-timepicker>
+            <ngb-timepicker name="time" id="time" size="medium" required formControlName="time"></ngb-timepicker>
           </div>
         </div>
       </div>

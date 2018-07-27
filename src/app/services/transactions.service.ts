@@ -43,8 +43,8 @@ export class TransactionsService {
     );
   }
 
-  updateTransaction(transaction: ITransaction): Observable<ITransaction> {
-    return this.http.put<ITransaction | any>(`${this.transUrl}/${transaction.id}`, transaction).pipe(
+  updateTransaction(transactionId, transaction: ITransaction): Observable<ITransaction> {
+    return this.http.put<ITransaction | any>(`${this.transUrl}/${transactionId}`, transaction).pipe(
       catchError((error, caught) => {
         this.alertService.showAlert({ severity: 'error', text: 'Error updating transaction' });
         return of({});
