@@ -45,7 +45,7 @@ export class CreateTransactionComponent implements OnInit {
     const dateN = `${date.year}-${date.month}-${date.day}` + ` ${time.hour}:${time.minute}`;
     const transaction: ITransaction = this.createTransactionForm.value;
     transaction.date = new Date(dateN).getTime();
-    transaction.categoryId = transaction.category.id;
+    transaction.categoryId = this.createTransactionForm.controls.category.value;
     this.transactionService.createTransaction(transaction).subscribe(createdT => {
       this.router.navigate(['/transactions']);
     });

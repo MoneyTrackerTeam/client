@@ -17,7 +17,7 @@
       </div>
 
       <div class="form-group has-danger">
-        <select class="form-control" id="categories" name="categoryId" formControlName="category" [ngClass]="{'is-invalid':isControlInvalid('category')}"
+        <select class="form-control" id="categories" formControlName="category" [ngClass]="{'is-invalid':isControlInvalid('category')}"
           required>
           <option value="0" disabled selected>Select category</option>
           <option *ngFor="let cat of categories" [ngValue]="cat" [value]="cat.id">{{cat.name}}</option>
