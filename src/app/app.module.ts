@@ -7,8 +7,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Material modules
-import { MatTableModule, MatTableDataSource } from '@angular/material';
-
+import { MatTableModule, MatToolbarModule, MatSidenavModule, MatButtonModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { TransactionsComponent } from './components/transactions/transactions.component';
@@ -19,7 +19,6 @@ import { CategoryComponent } from './components/category/category.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
 const appRoutes: Routes = [
   {
     path: 'transactions', component: TransactionsComponent
@@ -52,8 +51,7 @@ const appRoutes: Routes = [
     CategoryComponent,
     CreateCategoryComponent,
     EditTransactionComponent,
-    AlertComponent,
-    DeleteConfirmationComponent
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +62,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    FlexLayoutModule
   ],
   providers: [
     {
