@@ -59,8 +59,6 @@ export class EditTransactionComponent implements OnInit {
     this.categoryService.getCategories().subscribe(c => this.categories = c);
   }
   onSubmit() {
-    // const date = `${this.date.year}-${this.date.month}-${this.date.day} ${this.time.hour}:${this.time.minute}`;
-    // this.transaction.date = (new Date(date)).getTime();
     const dateStruct = this.editTransactionForm.controls.date.value;
     const timeStruct = this.editTransactionForm.controls.time.value;
     const stringDate = `${dateStruct.month}/${dateStruct.day}/${dateStruct.year} ${timeStruct.hour}:${timeStruct.minute}`;
