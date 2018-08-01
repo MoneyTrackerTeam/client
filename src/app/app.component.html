@@ -1,19 +1,36 @@
-<mat-toolbar color="primary">
-  <span routerLink="/" id="header">MoneyTracker</span>
-  <div fxShow="true" fxHide.lt-md="true">
-    <a routerLink="/transactions" mat-button>Transactions</a>
-  </div>
-  <div fxShow="true" fxHide.gt-sm="true">
-    <button (click)="sidenav.toggle()" mat-button>Show Side Menu</button>
-  </div>
-</mat-toolbar>
+<div class="container">
+  <mat-toolbar color="primary" class="toolbar">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
+    </div>
+    <span routerLink="/" id="header">MoneyTracker</span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <a routerLink="/transactions" mat-button>Transactions</a>
+    </div>
+    <span class="fill-remaining-space"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <a *ngIf="!loggedIn()" routerLink="/login" mat-button>Login</a>
+      <a *ngIf="loggedIn()" routerLink="/login" mat-button (click)="onLogout()">Logout</a>
+    </div>
+  </mat-toolbar>
 
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav mode="side" #sidenav>
-    <a routerLink="/transactions" mat-button>Transactions</a>
-  </mat-sidenav>
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" #sidenav [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <mat-list-item routerLink="/transactions">
+          Transactions
+        </mat-list-item>
+        <mat-list-item *ngIf="!loggedIn()" routerLink="/login">
+          Login
+        </mat-list-item>
+        <mat-list-item *ngIf="loggedIn()" routerLink="/" (click)="onLogout()">
+          Logout
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
 
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-content class="body-container">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

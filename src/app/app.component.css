@@ -1,3 +1,37 @@
 #header {
   cursor: pointer;
+  margin-right: 20px;
+}
+.fill-remaining-space{
+  flex: 1 1 auto;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-mobile .toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.sidenav-container {
+  flex: 1;
+  text-align: center;
+}
+
+.is-mobile .sidenav-container {
+  flex: 1 0 auto;
+}
+
+.body-container {
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-top: 1rem;
 }

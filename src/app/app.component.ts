@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from './services/alert.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private router: Router, private alerts: AlertService) { }
+export class AppComponent implements OnDestroy {
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
   loggedIn(): boolean {
     if (localStorage.getItem('access_token')) {
       return true;
@@ -17,5 +24,9 @@ export class AppComponent {
   }
   onLogout() {
     localStorage.removeItem('access_token');
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 }

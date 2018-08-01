@@ -1,13 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 // Material modules
-import { MatTableModule, MatToolbarModule, MatSidenavModule, MatButtonModule } from '@angular/material';
+import {
+  MatTableModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatIconModule,
+} from '@angular/material';
+import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -60,13 +65,15 @@ const appRoutes: Routes = [
       enableTracing: false
     }),
     HttpClientModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatTableModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     {
