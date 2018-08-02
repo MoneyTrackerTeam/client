@@ -14,7 +14,7 @@
     </div>
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container class="sidenav-container">
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" #sidenav [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
         <mat-list-item routerLink="/transactions">
