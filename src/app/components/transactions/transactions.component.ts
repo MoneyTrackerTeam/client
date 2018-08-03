@@ -15,7 +15,7 @@ export class TransactionsComponent implements OnInit {
   allTransaction: ITransaction[] = [];
   categoryId: number;
   categories: ICategory[];
-  displayedColumns: string[] = ['title', 'amount', 'date'];
+  displayedColumns: string[] = ['title', 'amount', 'category', 'date'];
   private _shownTransactions: ITransaction[] = [];
   months: IMonth[] = [];
   set shownTransactions(v: ITransaction[]) {
