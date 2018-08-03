@@ -1,4 +1,8 @@
 <div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h3 class="mat-display-1" style="margin-bottom:10px">All transactions</h3>
+    <button mat-raised-button routerLink="/create-transaction" color="primary">Create Transaction</button>
+  </div>
   <table mat-table [dataSource]="allTransaction" class="mat-elevation-z8">
     <!-- Title column -->
     <ng-container matColumnDef="title">
@@ -12,9 +16,10 @@
     </ng-container>
     <!-- Date -->
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> title </th>
+      <th mat-header-cell *matHeaderCellDef> Date </th>
       <td mat-cell *matCellDef="let element"> {{element.readableDate}} </td>
     </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row;  columns: displayedColumns;"></tr>
   </table>
 </div>

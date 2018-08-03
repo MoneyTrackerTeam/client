@@ -23,7 +23,6 @@
 
 .sidenav-container {
   flex: 1;
-  text-align: center;
 }
 
 .is-mobile .sidenav-container {
