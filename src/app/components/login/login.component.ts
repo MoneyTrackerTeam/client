@@ -36,9 +36,4 @@ export class LoginComponent implements OnInit {
       this.showSpinner = false;
     }
   }
-  isControlInvalid(control) {
-    const ctrl = this.loginForm.controls[control];
-    return ctrl.invalid && !ctrl.pristine;
-  }
-
 }
