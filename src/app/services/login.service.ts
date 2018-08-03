@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IUser } from '../interfaces/';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 
@@ -16,7 +16,7 @@ export class LoginService {
     return this.http.post<IUser>(this.loginUrl, { username, password }).pipe(
       catchError((error, caught) => {
         this.alertService.showAlert({ severity: 'error', text: 'Error logging in' });
-        return undefined;
+        return of([]);
       })
     );
   }

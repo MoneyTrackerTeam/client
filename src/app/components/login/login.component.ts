@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   formValid = true;
   loginForm: FormGroup;
+  showSpinner = false;
   constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -20,8 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showSpinner = true;
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(resp => {
+        this.showSpinner = false;
         if (resp.accessToken) {
           localStorage.setItem('access_token', `Bearer ${resp.accessToken}`);
           this.router.navigate(['/transactions']);
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
         }
       });
     } else {
-
+      this.showSpinner = false;
     }
   }
   isControlInvalid(control) {

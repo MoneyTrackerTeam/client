@@ -11,6 +11,9 @@ import {
   MatSidenavModule,
   MatButtonModule,
   MatIconModule,
+  MatInputModule,
+  MatCardModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -73,7 +76,10 @@ const appRoutes: Routes = [
     MatButtonModule,
     FlexLayoutModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatInputModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {
