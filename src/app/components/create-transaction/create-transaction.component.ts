@@ -16,7 +16,7 @@ const now = new Date();
 export class CreateTransactionComponent implements OnInit {
   categories: ICategory[];
   createTransactionForm: FormGroup;
-  constructor(private router: Router,
+  constructor(protected router: Router,
     private transactionService: TransactionsService,
     private categoryService: CategoryService,
     private fb: FormBuilder) { }
@@ -47,10 +47,6 @@ export class CreateTransactionComponent implements OnInit {
       this.router.navigate(['/transactions']);
     });
   }
-  onCancel() {
-    this.router.navigate(['/']);
-  }
-
   getCategories() {
     this.categoryService.getCategories().subscribe((categories) => {
       this.categories = categories;
@@ -63,12 +59,5 @@ export class CreateTransactionComponent implements OnInit {
       this.categories.push(cat);
       this.createTransactionForm.controls.category.setValue(cat.id);
     }
-  }
-  isControlInvalid(control) {
-    const ctrl = this.createTransactionForm.controls[control];
-    if (control === 'category') {
-      return (ctrl.value !== 0 || ctrl.value !== -1) && (ctrl.invalid && ctrl.touched);
-    }
-    return ctrl.invalid && !ctrl.pristine;
   }
 }
