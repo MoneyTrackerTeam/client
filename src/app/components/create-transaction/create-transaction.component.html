@@ -44,3 +44,26 @@
     <button type="submit" class="btn btn-success">Create</button>
   </form>
 </div> -->
+
+<form [formGroup]="createTransactionForm" class="container" (submit)="onSubmit($event)">
+  <mat-form-field>
+    <input matInput type="text" name="" id="title" placeholder="Title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" name="" id="title" placeholder="Amount" formControlName="amount">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Select category" formControlName="category">
+      <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (click)="picker.open()" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <div class="controls">
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Create</button>
+  </div>
+</form>
