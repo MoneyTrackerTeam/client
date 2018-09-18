@@ -7,6 +7,7 @@ import { CategoryService } from '../../services/category.service';
 import { NgbTimeStruct, NgbDateStruct } from '../../../../node_modules/@ng-bootstrap/ng-bootstrap';
 import { ValidateDate } from '../../validators/date.validator';
 import { ValidateTime } from '../../validators/time.validator';
+import { LoaderService } from '../../services/common/loader.service';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -18,7 +19,7 @@ export class EditTransactionComponent implements OnInit {
   transactionId: number;
   categories: ICategory[];
   constructor(private transactionService: TransactionsService, private activeRoute: ActivatedRoute,
-    private categoryService: CategoryService, private router: Router, private fb: FormBuilder
+    private categoryService: CategoryService, private router: Router, private fb: FormBuilder, private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -37,6 +38,7 @@ export class EditTransactionComponent implements OnInit {
     });
   }
   getTransaction() {
+    this.loaderService.shown()
     this.transactionService.getOneTransaction(this.transactionId).subscribe(t => {
       this.editTransactionForm.controls.title.setValue(t.title);
       this.editTransactionForm.controls.amount.setValue(t.amount);
@@ -53,12 +55,14 @@ export class EditTransactionComponent implements OnInit {
       };
       this.editTransactionForm.controls.date.setValue(date);
       this.editTransactionForm.controls.time.setValue(time);
+      this.loaderService.hide()
     });
   }
   getCategories() {
     this.categoryService.getCategories().subscribe(c => this.categories = c);
   }
   onSubmit() {
+    this.loaderService.shown()
     const dateStruct = this.editTransactionForm.controls.date.value;
     const timeStruct = this.editTransactionForm.controls.time.value;
     const stringDate = `${dateStruct.month}/${dateStruct.day}/${dateStruct.year} ${timeStruct.hour}:${timeStruct.minute}`;
@@ -69,6 +73,7 @@ export class EditTransactionComponent implements OnInit {
       date: (new Date(stringDate)).getTime()
     };
     this.transactionService.updateTransaction(this.transactionId, transaction).subscribe((t) => {
+      this.loaderService.hide()
       this.router.navigate(['transactions']);
     });
   }

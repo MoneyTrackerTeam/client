@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingModule } from 'ngx-loading'
 // Material modules
 import {
   MatTableModule,
@@ -29,7 +30,9 @@ import { CreateTransactionComponent } from './components/create-transaction/crea
 import { CategoryComponent } from './components/category/category.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
-import { AlertComponent } from './components/alert/alert.component';
+import { AlertComponent } from './components/common/alert/alert.component';
+import { LoaderComponent } from './components/common/loader/loader.component';
+
 const appRoutes: Routes = [
   {
     path: 'transactions', component: TransactionsComponent
@@ -62,7 +65,8 @@ const appRoutes: Routes = [
     CategoryComponent,
     CreateCategoryComponent,
     EditTransactionComponent,
-    AlertComponent
+    AlertComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +90,7 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    LoadingModule,
   ],
   providers: [
     {

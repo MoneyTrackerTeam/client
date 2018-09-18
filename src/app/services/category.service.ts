@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICategory } from '../interfaces';
 import { catchError } from 'rxjs/operators';
-import { AlertService } from './alert.service';
+import { AlertService } from './common/alert.service';
 import { of } from 'rxjs';
 
 @Injectable({

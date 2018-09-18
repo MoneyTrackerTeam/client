@@ -1,7 +1,10 @@
+<app-loader></app-loader>
 <div class="container">
   <mat-toolbar color="primary" class="toolbar">
     <div fxShow="true" fxHide.gt-sm="true">
-      <button (click)="sidenav.toggle()" mat-icon-button><mat-icon>menu</mat-icon></button>
+      <button (click)="sidenav.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
     </div>
     <span routerLink="/" id="header">MoneyTracker</span>
     <div fxShow="true" fxHide.lt-md="true">
@@ -15,7 +18,8 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" #sidenav [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" #sidenav [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
       <mat-nav-list>
         <mat-list-item routerLink="/transactions">
           Transactions

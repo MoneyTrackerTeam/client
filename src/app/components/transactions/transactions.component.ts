@@ -4,6 +4,7 @@ import { ITransaction, IMonth, ICategory } from '../../interfaces/';
 import { Router } from '@angular/router';
 import { MonthsService } from '../../services/months.service';
 import { CategoryService } from '../../services/category.service';
+import { LoaderService } from '../../services/common/loader.service';
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
@@ -15,7 +16,7 @@ export class TransactionsComponent implements OnInit {
   allTransaction: ITransaction[] = [];
   categoryId: number;
   categories: ICategory[];
-  displayedColumns: string[] = ['title', 'amount', 'category', 'date'];
+  displayedColumns: string[] = ['title', 'amount', 'category', 'date', 'action'];
   private _shownTransactions: ITransaction[] = [];
   months: IMonth[] = [];
   set shownTransactions(v: ITransaction[]) {
@@ -29,7 +30,8 @@ export class TransactionsComponent implements OnInit {
   }
   constructor(private transactionsService: TransactionsService, private router: Router,
     private monthService: MonthsService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private loaderService: LoaderService) { }
 
   ngOnInit() {
     this.getTransaction();
@@ -37,10 +39,12 @@ export class TransactionsComponent implements OnInit {
     this.getCategories();
   }
   getTransaction(): void {
+    this.loaderService.shown()
     this.transactionsService.getTransactions()
       .subscribe(transactions => {
         this.allTransaction = transactions;
         this.shownTransactions = this.allTransaction;
+        this.loaderService.hide()
       });
   }
   getMonths(): void {
@@ -55,6 +59,19 @@ export class TransactionsComponent implements OnInit {
   addTransaction(): void {
     this.router.navigate(['/create-transaction']);
   }
+
+  deleteTransaction(t: ITransaction): void {
+    this.loaderService.shown();
+    this.transactionsService.deleteTransaction(t.id).subscribe((r) => {
+      if (r) {
+        this.shownTransactions = this.shownTransactions.filter((tr) => {
+          return tr.id !== t.id;
+        });
+        this.loaderService.hide()
+      }
+    });
+  }
+
   onSelectMonth(month?: IMonth): void {
     if (month) {
       this.shownTransactions = this.transactionsService.transformDateArray(month.transactions);
@@ -77,13 +94,7 @@ export class TransactionsComponent implements OnInit {
   }
   navigateToTr(e: any, t: ITransaction) {
     if (e.type === 'click' && e.target.id === 'delete-transaction') {
-      this.transactionsService.deleteTransaction(t.id).subscribe((r) => {
-        if (r) {
-          this.shownTransactions = this.shownTransactions.filter((tr) => {
-            return tr.id !== t.id;
-          });
-        }
-      });
+      this.deleteTransaction(t);
     } else if (e.type === 'click' && e.target.id === 'edit-transaction') {
       this.router.navigate(['/edit-transaction', t.id]);
     } else {

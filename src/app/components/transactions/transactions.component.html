@@ -14,6 +14,7 @@
       <th mat-header-cell *matHeaderCellDef> Amount </th>
       <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
     </ng-container>
+    <!-- Category -->
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef> Category </th>
       <td mat-cell *matCellDef="let element"> {{element.category.name}} </td>
@@ -23,7 +24,15 @@
       <th mat-header-cell *matHeaderCellDef> Date </th>
       <td mat-cell *matCellDef="let element"> {{element.readableDate}} </td>
     </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon id="edit-transaction" style="margin-right: 0.5em;">edit</mat-icon>
+        <mat-icon id="delete-transaction">delete</mat-icon>
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row;  columns: displayedColumns;" [routerLink]="'/transactions/'+row.id" class="link"></tr>
+    <tr mat-row *matRowDef="let row;  columns: displayedColumns;" (click)="navigateToTr($event, row)" class="link"></tr>
   </table>
 </div>
+<!-- @TODO: Add sorting -->

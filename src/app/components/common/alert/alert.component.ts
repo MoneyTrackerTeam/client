@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../services/alert.service';
-import { Alert } from '../../interfaces';
+import { AlertService } from '../../../services/common/alert.service';
+import { Alert } from '../../../interfaces';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 const animation = [

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoaderService } from '../../services/common/loader.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,8 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   formValid = true;
   loginForm: FormGroup;
-  showSpinner = false;
-  constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
+  constructor(private loginService: LoginService, private router: Router, private fb: FormBuilder, private loaderService: LoaderService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showSpinner = true;
+    this.loaderService.shown()
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(resp => {
-        this.showSpinner = false;
+        this.loaderService.hide()
         if (resp.accessToken) {
           localStorage.setItem('access_token', `Bearer ${resp.accessToken}`);
           this.router.navigate(['/transactions']);
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         }
       });
     } else {
-      this.showSpinner = false;
+      this.loaderService.hide()
     }
   }
 }

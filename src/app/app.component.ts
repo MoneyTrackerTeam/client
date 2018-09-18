@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService } from './services/alert.service';
+import { AlertService } from './services/common/alert.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-root',

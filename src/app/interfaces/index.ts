@@ -34,3 +34,7 @@ export interface ICategory {
     name?: string;
     trnsactions?: ITransaction[];
 }
+
+export interface LoaderState {
+    shown: boolean;
+}

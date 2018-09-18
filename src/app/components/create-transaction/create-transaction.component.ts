@@ -6,6 +6,7 @@ import { CategoryService } from '../../services/category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidateDate } from '../../validators/date.validator';
 import { ValidateTime } from '../../validators/time.validator';
+import { LoaderService } from '../../services/common/loader.service';
 
 const now = new Date();
 @Component({
@@ -19,7 +20,8 @@ export class CreateTransactionComponent implements OnInit {
   constructor(protected router: Router,
     private transactionService: TransactionsService,
     private categoryService: CategoryService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private loaderService: LoaderService) { }
 
   ngOnInit() {
     this.getCategories();
@@ -40,10 +42,12 @@ export class CreateTransactionComponent implements OnInit {
       e.preventDefault();
       return;
     }
+    this.loaderService.shown()
     const transaction: ITransaction = this.createTransactionForm.value;
     transaction.date = new Date(this.createTransactionForm.controls.date.value).getTime();
     transaction.categoryId = this.createTransactionForm.controls.category.value;
     this.transactionService.createTransaction(transaction).subscribe(createdT => {
+      this.loaderService.hide()
       this.router.navigate(['/transactions']);
     });
   }
