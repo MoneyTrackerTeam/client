@@ -1,10 +1,6 @@
-<div class="form-group">
-  <div class="row">
-    <div class="col-md-8">
-      <input class="form-control" type="text" id="amount" placeholder="Category name" [(ngModel)]="name" name="name" required>
-    </div>
-    <div class="col-md-4">
-      <button class="btn btn-info" (click)="onCreate()" type="button">Create</button>
-    </div>
-  </div>
-</div>
+<form [formGroup]="createCategoryForm" class="container" (submit)="onCreate($event)">
+  <mat-form-field>
+    <input matInput type="text" name="" id="title" placeholder="Category name" formControlName="title">
+  </mat-form-field>
+  <button style="margin-left: 1rem;" mat-raised-button color="primary" type="submit">Create</button>
+</form>

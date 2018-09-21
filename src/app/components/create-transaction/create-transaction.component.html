@@ -9,10 +9,13 @@
   <mat-form-field>
     <mat-select placeholder="Select category" formControlName="category">
       <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</mat-option>
+      <mat-option [value]="-1">Create new category</mat-option>
     </mat-select>
   </mat-form-field>
+  <app-create-category *ngIf="createCategoryShown" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (focus)="picker.open()" (click)="picker.open()" formControlName="date">
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (focus)="picker.open()" (click)="picker.open()"
+      formControlName="date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>

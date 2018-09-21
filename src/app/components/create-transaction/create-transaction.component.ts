@@ -5,16 +5,14 @@ import { ITransaction, ICategory } from '../../interfaces';
 import { CategoryService } from '../../services/category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ValidateDate } from '../../validators/date.validator';
-import { ValidateTime } from '../../validators/time.validator';
 import { LoaderService } from '../../services/common/loader.service';
-
-const now = new Date();
 @Component({
   selector: 'app-create-transaction',
   templateUrl: './create-transaction.component.html',
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent implements OnInit {
+  createCategoryShown = false;
   categories: ICategory[];
   createTransactionForm: FormGroup;
   constructor(protected router: Router,
@@ -32,9 +30,13 @@ export class CreateTransactionComponent implements OnInit {
     this.createTransactionForm = this.fb.group({
       title: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/\d+/)]],
-      category: [0, [Validators.min(1)]],
+      category: [0, [Validators.min(-1)]],
       date: [{}, [Validators.required, ValidateDate]],
       time: [{}, [Validators.required]]
+    });
+    // Add listener to show the Create category view if Create category selected
+    this.createTransactionForm.controls.category.valueChanges.subscribe((val) => {
+      val === -1 ? this.createCategoryShown = true : this.createCategoryShown = false;
     });
   }
   onSubmit(e) {
@@ -56,12 +58,14 @@ export class CreateTransactionComponent implements OnInit {
       this.categories = categories;
     });
   }
+
   onCategoryCreated(cat: ICategory) {
     if (cat.id === -1) {
-
+      this.createCategoryShown = true;
     } else {
       this.categories.push(cat);
       this.createTransactionForm.controls.category.setValue(cat.id);
+      this.createCategoryShown = false;
     }
   }
 }
