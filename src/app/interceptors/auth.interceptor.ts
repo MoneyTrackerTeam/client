@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     }
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        if (req.url.indexOf('login') > -1) {
+        if (req.url.indexOf('login') > -1 || (req.url.indexOf('users') > -1 && req.method == "POST")) {
             return next.handle(req);
         }
         if (localStorage.getItem('access_token')) {

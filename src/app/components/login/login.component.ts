@@ -36,4 +36,7 @@ export class LoginComponent implements OnInit {
       this.loaderService.hide()
     }
   }
+  signUp() {
+    this.router.navigate(['signup']);
+  }
 }

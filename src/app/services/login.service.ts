@@ -10,6 +10,7 @@ import { AlertService } from './common/alert.service';
 })
 export class LoginService {
   private loginUrl = 'http://localhost:3000/login';
+  private signUpUrl = 'http://localhost:3000/users';
   constructor(private http: HttpClient, private alertService: AlertService) { }
 
   login(username: string, password: string): Observable<any> {
@@ -20,4 +21,13 @@ export class LoginService {
       })
     );
   }
+  signup(username: string, password: string, name): Observable<any> {
+    return this.http.post<IUser>(this.signUpUrl, { username, password, name }).pipe(
+      catchError((error, caught) => {
+        this.alertService.showAlert({ severity: 'error', text: 'Error signing up in' });
+        return of([]);
+      })
+    );
+  }
 }
+

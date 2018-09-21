@@ -32,6 +32,7 @@ import { CreateCategoryComponent } from './components/create-category/create-cat
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
 import { AlertComponent } from './components/common/alert/alert.component';
 import { LoaderComponent } from './components/common/loader/loader.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const appRoutes: Routes = [
   {
@@ -40,6 +41,10 @@ const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: 'transactions/:id',
@@ -67,6 +72,7 @@ const appRoutes: Routes = [
     EditTransactionComponent,
     AlertComponent,
     LoaderComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

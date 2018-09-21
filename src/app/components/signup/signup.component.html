@@ -3,8 +3,15 @@
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form class="form" [formGroup]="loginForm">
+    <form class="form" [formGroup]="signupForm" (submit)="onSubmit($event)">
       <table class="full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+          </td>
+        </tr>
         <tr>
           <td>
             <mat-form-field class="full-width">
@@ -23,7 +30,7 @@
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="onSubmit()" color="primary">Login</button>
-    <button mat-raised-button (click)="signUp()" color="accent">Sign Up</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Sign Up</button>
+    <button mat-raised-button color="accent">Back to login</button>
   </mat-card-actions>
 </mat-card>
