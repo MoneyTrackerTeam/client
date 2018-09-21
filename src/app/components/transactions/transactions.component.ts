@@ -64,7 +64,7 @@ export class TransactionsComponent implements OnInit {
     this.loaderService.shown();
     this.transactionsService.deleteTransaction(t.id).subscribe((r) => {
       if (r) {
-        this.shownTransactions = this.shownTransactions.filter((tr) => {
+        this.allTransaction = this.allTransaction.filter((tr) => {
           return tr.id !== t.id;
         });
         this.loaderService.hide()
