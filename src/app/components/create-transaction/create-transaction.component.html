@@ -19,6 +19,9 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <mat-form-field>
+    <textarea matInput name="" id="note" placeholder="Add a note" formControlName="note"></textarea>
+  </mat-form-field>
   <div class="controls">
     <button mat-raised-button color="warn" (click)="router.navigate(['/']);" type="button">Cancel</button>
     <button mat-raised-button color="primary" type="submit">Create</button>

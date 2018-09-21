@@ -32,7 +32,8 @@ export class CreateTransactionComponent implements OnInit {
       amount: ['', [Validators.required, Validators.pattern(/\d+/)]],
       category: [0, [Validators.min(-1)]],
       date: [{}, [Validators.required, ValidateDate]],
-      time: [{}, [Validators.required]]
+      time: [{}, [Validators.required]],
+      note: ['']
     });
     // Add listener to show the Create category view if Create category selected
     this.createTransactionForm.controls.category.valueChanges.subscribe((val) => {
