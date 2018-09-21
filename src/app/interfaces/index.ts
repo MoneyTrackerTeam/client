@@ -10,7 +10,10 @@ export interface ITransaction {
     categoryId?: string | number;
     category?: ICategory;
 }
-
+export interface Alert {
+    severity: 'success' | 'info' | 'warning' | 'error';
+    text: string;
+}
 export interface IMonth {
     id: number;
     title: string;
