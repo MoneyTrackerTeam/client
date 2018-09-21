@@ -1,43 +1,29 @@
-<h1>Edit Transaction</h1>
-<!-- <div class="col-md-8 offset-md-2">
-  <h2 style="margin-bottom: 20px;">Create new transaction</h2>
-  <form (submit)="onSubmit()" [formGroup]="editTransactionForm">
-    <fieldset>
-      <div class="form-group has-dangers">
-        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title" [ngClass]="{'is-invalid':isControlInvalid('title')}">
-        <div class="invalid-feedback">
-          Title is reuquired
-        </div>
-      </div>
-      <div class="form-group has-danger">
-        <input class="form-control" type="text" id="amount" placeholder="Amount" required formControlName="amount">
-      </div>
-      <div class="invalid-feedback">
-        Amount is required and should be numberic
-      </div>
-      <div class="form-group has-danger">
-        <select class="form-control" id="categories" name="categoryId" formControlName="category" [ngClass]="{'is-invalid':isControlInvalid('category')}"
-          required>
-          <option value="0" disabled selected>Select category</option>
-          <option *ngFor="let cat of categories" [ngValue]="cat" [value]="cat.id">{{cat.name}}</option>
-          <option value="-1">Create new...</option>
-        </select>
-        <div class="invalid-feedback">Please select category</div>
-      </div>
-      <app-create-category *ngIf="editTransactionForm.controls['category'].value== -1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
-      <div class="form-group">
-        <div class="input-group row align-items-center">
-          <div class="col-md-7">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()" formControlName="date"
-              required>
-          </div>
-          <div class="col-md-5">
-            <ngb-timepicker name="time" id="time" size="medium" required formControlName="time"></ngb-timepicker>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-    <input class="btn btn-danger" type="button" value="Cancel" style="margin-right: 10px;" (click)="onCancel()">
-    <button type="submit" class="btn btn-info">Update</button>
-  </form>
-</div> -->
+<h3 class="mat-display-1" style="margin-bottom:10px">Edit transaction</h3>
+<form [formGroup]="editTransactionForm" class="container" (submit)="onSubmit($event)">
+  <mat-form-field>
+    <input matInput type="text" name="" id="title" placeholder="Title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" name="" id="title" placeholder="Amount" formControlName="amount">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Select category" formControlName="category">
+      <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</mat-option>
+      <mat-option [value]="-1">Create new category</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-create-category *ngIf="createCategoryShown" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (focus)="picker.open()" (click)="picker.open()"
+      formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker touchUi></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput name="" id="note" placeholder="Add a note" formControlName="note"></textarea>
+  </mat-form-field>
+  <div class="controls">
+    <button mat-raised-button color="warn" (click)="onCancel()" type="button">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </div>
+</form>
