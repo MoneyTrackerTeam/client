@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICategory } from '../interfaces';
 import { catchError } from 'rxjs/operators';
-import { AlertService } from './alert.service';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -10,12 +9,11 @@ import { of } from 'rxjs';
 })
 export class CategoryService {
   private catUrl = 'http://localhost:3000/categories';
-  constructor(private http: HttpClient, private alertService: AlertService) { }
+  constructor(private http: HttpClient) { }
 
   getCategories() {
     return this.http.get<ICategory[]>(this.catUrl).pipe(
       catchError((error, caught) => {
-        this.alertService.showAlert({ severity: 'error', text: 'Error fetching categories' });
         return [];
       })
     );
@@ -24,7 +22,6 @@ export class CategoryService {
   createCategory(name: string) {
     return this.http.post<ICategory>(this.catUrl, { name }).pipe(
       catchError((error, caught) => {
-        this.alertService.showAlert({ severity: 'error', text: 'Error creating category' });
         return of({ id: -1, name: name });
       })
     );
