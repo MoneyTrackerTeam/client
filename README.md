@@ -1,3 +1,3 @@
 # Notifications:
-Add badge with notificaitons count
-Exapnd notificaitons list on click
+- Add badge with notificaitons count
+- Exapnd notificaitons list on click
