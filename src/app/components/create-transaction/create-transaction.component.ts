@@ -31,6 +31,7 @@ export class CreateTransactionComponent implements OnInit {
       title: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/\d+/)]],
       category: [0, [Validators.min(1)]],
+      note: [''],
       date: [{}, [Validators.required, ValidateDate]],
       time: [{}, [Validators.required]]
     });
@@ -46,6 +47,7 @@ export class CreateTransactionComponent implements OnInit {
     const transaction: ITransaction = this.createTransactionForm.value;
     transaction.date = new Date(dateN).getTime();
     transaction.categoryId = this.createTransactionForm.controls.category.value;
+    transaction.note = this.createTransactionForm.controls.note.value;
     this.transactionService.createTransaction(transaction).subscribe(createdT => {
       this.router.navigate(['/transactions']);
     });

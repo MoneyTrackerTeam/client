@@ -2,6 +2,7 @@ export interface ITransaction {
     id?: number;
     title: string;
     amount: number;
+    note?: string;
     date: number;
     user?: IUser;
     readableDate?: String;

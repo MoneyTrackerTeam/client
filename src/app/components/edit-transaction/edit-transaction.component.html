@@ -3,7 +3,8 @@
   <form (submit)="onSubmit()" [formGroup]="editTransactionForm">
     <fieldset>
       <div class="form-group has-dangers">
-        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title" [ngClass]="{'is-invalid':isControlInvalid('title')}">
+        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title"
+          [ngClass]="{'is-invalid':isControlInvalid('title')}">
         <div class="invalid-feedback">
           Title is reuquired
         </div>
@@ -25,10 +26,13 @@
       </div>
       <app-create-category *ngIf="editTransactionForm.controls['category'].value== -1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
       <div class="form-group">
+        <textarea class="form-control" id="note" rows="2" placeholder="Note" formControlName="note"></textarea>
+      </div>
+      <div class="form-group">
         <div class="input-group row align-items-center">
           <div class="col-md-7">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()" formControlName="date"
-              required>
+            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()"
+              formControlName="date" required>
           </div>
           <div class="col-md-5">
             <ngb-timepicker name="time" id="time" size="medium" required formControlName="time"></ngb-timepicker>

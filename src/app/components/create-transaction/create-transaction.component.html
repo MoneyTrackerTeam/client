@@ -3,7 +3,8 @@
   <form (submit)="onSubmit($event)" [formGroup]="createTransactionForm">
     <fieldset>
       <div class="form-group has-danger">
-        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title" [ngClass]="{'is-invalid':isControlInvalid('title')}">
+        <input class="form-control" type="text" id="title" placeholder="Title" required formControlName="title"
+          [ngClass]="{'is-invalid':isControlInvalid('title')}">
         <div class="invalid-feedback">
           Title is reuquired
         </div>
@@ -15,7 +16,6 @@
           Amount is required and should be numberic
         </div>
       </div>
-
       <div class="form-group has-danger">
         <select class="form-control" id="categories" formControlName="category" [ngClass]="{'is-invalid':isControlInvalid('category')}"
           required>
@@ -26,13 +26,16 @@
         <div class="invalid-feedback">Please select category</div>
       </div>
       <app-create-category *ngIf="createTransactionForm.controls['category'].value== -1" (categoryCreated)="onCategoryCreated($event)"></app-create-category>
+      <div class="form-group">
+        <textarea class="form-control" id="note" rows="2" placeholder="Note" formControlName="note"></textarea>
+      </div>
       <div class="form-group has-danger">
         <div class="input-group row align-items-center">
           <div class="col-md-7">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()" formControlName="date"
-              required [ngClass]="{'is-invalid':isControlInvalid('date')}">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="date" ngbDatepicker #d="ngbDatepicker" (focus)="d.toggle()"
+              formControlName="date" required [ngClass]="{'is-invalid':isControlInvalid('date')}">
           </div>
-          <div class="invalid-feedback">Please select category</div>
+          <div class="invalid-feedback">Please enter valid date</div>
           <div class="col-md-5">
             <ngb-timepicker class="has-danger" name="time" id="time" size="medium" required formControlName="time"></ngb-timepicker>
           </div>

@@ -32,6 +32,7 @@ export class EditTransactionComponent implements OnInit {
       title: ['', Validators.required],
       amount: ['', [Validators.required, Validators.pattern(/\d+/)]],
       category: [0, [Validators.min(1)]],
+      note: [''],
       date: [{}, [Validators.required, ValidateDate]],
       time: [{}, [Validators.required, ValidateTime]]
     });
@@ -41,6 +42,7 @@ export class EditTransactionComponent implements OnInit {
       this.editTransactionForm.controls.title.setValue(t.title);
       this.editTransactionForm.controls.amount.setValue(t.amount);
       this.editTransactionForm.controls.category.setValue(t.category.id);
+      this.editTransactionForm.controls.note.setValue(t.note);
       const jsDate = new Date(+t.date);
       const date = {
         year: jsDate.getFullYear(),
