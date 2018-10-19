@@ -1,11 +1,8 @@
-<a class="nav-link dropdown-toggle" id="notificationsDrop" role="button" data-toggle="dropdown">Notification(<b>{{unreadNotifications}}</b>)</a>
-<ul class="dropdown-menu notify-drop">
-  <!-- end notify title -->
-  <!-- notify content -->
-  <div class="drop-content">
+<div class="dropleft">
+  <a class="nav-link dropdown-toggle" id="notificationsDrop" role="button" data-toggle="dropdown"><span>Notifications</span>
+    <span class='badgeAlert'> (2)</span>
+    <span class="caret"></span></a>
+  <ul class="dropdown-menu list-notification .list-unstyled">
     <app-notification></app-notification>
-  </div>
-  <div class="notify-drop-footer text-center">
-    <a href=""><i class="fa fa-eye"></i> Tümünü Göster</a>
-  </div>
-</ul>
+  </ul>
+</div>

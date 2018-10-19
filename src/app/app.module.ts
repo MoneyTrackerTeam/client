@@ -14,6 +14,9 @@ import { CreateTransactionComponent } from './components/create-transaction/crea
 import { CategoryComponent } from './components/category/category.component';
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { NotificationComponent } from './components/notification/notification.component';
+
 const appRoutes: Routes = [
   {
     path: 'transactions', component: TransactionsComponent
@@ -46,6 +49,8 @@ const appRoutes: Routes = [
     CategoryComponent,
     CreateCategoryComponent,
     EditTransactionComponent,
+    NotificationsComponent,
+    NotificationComponent,
 
   ],
   imports: [
